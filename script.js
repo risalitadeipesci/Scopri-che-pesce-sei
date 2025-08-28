@@ -201,16 +201,23 @@ function computeResult(){
 
 // ---- Invio silenzioso a Google Sheets (nessuna UI di notifica)
 async function sendToSheet(payload){
-  if(!SCRIPT_URL) return; // se non impostato, non fa nulla
+  if(!SCRIPT_URL) return;
   try{
+    const fd = new FormData();
+    fd.append("payload", JSON.stringify(payload));
+
+    // Nessun header custom, niente application/json → niente preflight
     await fetch(SCRIPT_URL, {
-      method:"POST",
-      headers:{ "Content-Type":"application/json" },
-      body: JSON.stringify(payload),
-      keepalive: true
+      method: "POST",
+      body: fd,
+      // opzionale, se vuoi silenziare del tutto i warning CORS:
+      // mode: "no-cors"
     });
+
+    // Se vuoi loggare qualcosa:
+    // console.log("Invio effettuato");
   }catch(e){
-    console.warn("Invio Sheet fallito:", e);
+    console.error("Invio Sheet fallito:", e);
   }
 }
 
