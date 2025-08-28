@@ -1,4 +1,4 @@
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzmAh_zKrB1lZ2xXAUBhbbnPPiaEcCGW79iXNDQnwIsKQDMAUl_sKkBAB8wUhW2SbuMIA/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzHrDnRQXjarVQtJupOc5Oj6E24FSYylzmUu053P-n0ReVNcWgcrIArPBQF8-QsMlx2eg/exec";
 
 // Profili singoli
 const FISH = {
