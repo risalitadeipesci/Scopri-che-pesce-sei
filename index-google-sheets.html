@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Test Personalità - Quale Pesce Sei?</title>
+  <meta name="description" content="Test gratuito sulla personalità: 7 domande, 5 opzioni. Scopri se sei Pesce Gatto, Siluro, Storione, Carpa o Anguilla.">
+  <style>
+    :root{
+      --bg:#0e141b; --card:#121a23; --muted:#94a3b8; --text:#e5f0ff;
+      --accent:#57c1ff; --accent-2:#8effb1; --error:#ff6b6b; --ok:#7cf29c; --border:#1f2a37;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background: radial-gradient(1200px 800px at 70% -10%, #14324a 0%, var(--bg) 45%),
+                  radial-gradient(800px 600px at -10% 120%, #102433 0%, var(--bg) 50%);
+      color:var(--text); line-height:1.6;
+    }
+    header{ padding:32px 16px 8px; text-align:center; }
+    header h1{ margin:0; font-weight:800; letter-spacing:.2px; font-size:clamp(1.6rem, 3.5vw, 2.4rem); }
+    header p{ margin:.35rem 0 0; color:var(--muted); font-size:clamp(.95rem, 2.2vw, 1.05rem); }
+    .container{ max-width:980px; margin:16px auto 56px; padding:0 16px; }
+    .card{ background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.0)); border:1px solid var(--border); border-radius:20px; box-shadow: 0 10px 40px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.04); overflow:hidden; }
+    .card-body{ padding: 18px 18px 8px; }
+    .q{ padding:14px 16px; margin: 12px 0; border:1px solid var(--border); border-radius:16px; background: rgba(255,255,255,.02); }
+    .q h3{ margin:0 0 8px; font-size:1.05rem; }
+    .options{ display:grid; gap:8px; }
+    label.option{ display:flex; gap:10px; align-items:flex-start; padding:10px 12px; border:1px dashed transparent; border-radius:12px; background: rgba(255,255,255,.02); cursor:pointer; transition: all .12s ease; }
+    label.option:hover{ background: rgba(255,255,255,.04); }
+    input[type="radio"]{ margin-top:3px; transform:scale(1.1); accent-color: var(--accent); }
+    .actions{ display:flex; flex-wrap:wrap; gap:10px; padding: 12px 18px 18px; border-top:1px solid var(--border); background: rgba(255,255,255,.02); }
+    button{ appearance:none; border:none; cursor:pointer; padding:12px 16px; border-radius:12px; font-weight:700; transition:transform .06s ease, box-shadow .2s ease, background .2s ease; }
+    button.primary{ background: linear-gradient(180deg, #41b6ff, #2a9df7); color:#00243a; box-shadow: 0 8px 22px rgba(65,182,255,.35); }
+    button.primary:hover{ transform: translateY(-1px); }
+    button.secondary{ background:#192330; color: var(--text); border:1px solid var(--border); }
+    .pill{ display:inline-flex; align-items:center; gap:8px; font-size:.9rem; color:var(--muted); padding:6px 10px; border:1px solid var(--border); border-radius:999px; background: rgba(255,255,255,.03); }
+    .result{ display:none; padding: 18px; border-top:1px solid var(--border); background: linear-gradient(180deg, rgba(88,210,255,.06), transparent); }
+    .result h2{ margin: 0 0 6px; font-size:1.35rem; }
+    .result .badge{ display:inline-flex; gap:8px; align-items:center; padding:6px 10px; border:1px solid var(--border); border-radius:999px; background: rgba(255,255,255,.05); font-weight:700; }
+    .hidden{ display:none !important; }
+    .progress{ width:100%; height:10px; background:#0f1922; border:1px solid var(--border); border-radius:999px; overflow:hidden; margin:12px 0 0; }
+    .progress > span{ display:block; height:100%; width:0%; background: linear-gradient(90deg, var(--accent), var(--accent-2)); transition: width .25s ease; }
+    footer{ text-align:center; color:var(--muted); font-size:.9rem; padding:24px 0 64px; }
+    .note{ color:var(--muted); font-size:.95rem; }
+    .small{ font-size:.92rem; color:var(--muted); }
+    .grid-2{ display:grid; grid-template-columns: 1fr; gap:16px; }
+    @media (min-width: 940px){ .grid-2{ grid-template-columns: 1.25fr .75fr; align-items:start; } }
+    .box{ border:1px solid var(--border); border-radius:16px; padding:14px; background: rgba(255,255,255,.02); }
+    .field-grid{ display:grid; grid-template-columns: 1fr; gap:12px; }
+    @media (min-width:700px){ .field-grid{ grid-template-columns: 1fr 1fr; } }
+    .field{ display:flex; flex-direction:column; gap:6px; }
+    .field input{ background:#0f1922; border:1px solid var(--border); border-radius:10px; color:var(--text); padding:10px 12px; }
+    .consent{ font-size:.85rem; color:var(--muted); }
+    .error{ color:var(--error); }
+    .success{ color:var(--ok); }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Test di Personalità 🐟 Quale pesce sei?</h1>
+    <p>7 domande, 5 opzioni. Inserisci i tuoi dati e scopri il risultato. (I dati vengono salvati su un foglio Google solo se l'organizzatore ha impostato l'integrazione.)</p>
+  </header>
+
+  <div class="container grid-2">
+    <section class="card" id="quiz-card" aria-labelledby="titolo-quiz">
+      <div class="card-body">
+        <div class="pill">Modalità: <strong style="margin-left:6px; color:#e8f7ff;">Quiz con salvataggio su Google Sheets</strong></div>
+        <h2 id="titolo-quiz" class="hidden">Test di personalità</h2>
+
+        <!-- CAMPi ANAGRAFICI -->
+        <form id="quiz-form">
+          <fieldset class="q" aria-label="Dati personali">
+            <h3>Prima di iniziare</h3>
+            <div class="field-grid">
+              <label class="field">
+                <span>Nome e Cognome</span>
+                <input type="text" id="nomeCognome" name="nomeCognome" placeholder="Es. Mario Rossi" required>
+              </label>
+              <label class="field">
+                <span>Città e Provincia</span>
+                <input type="text" id="cittaProvincia" name="cittaProvincia" placeholder="Es. Parma (PR)" required>
+              </label>
+            </div>
+            <p class="consent">
+              Spuntando le risposte acconsenti al trattamento dei dati ai soli fini di analisi statistica dell'evento.
+              <br><em>I dati restano nel foglio dell'organizzatore e non vengono condivisi con terzi.</em>
+            </p>
+          </fieldset>
+
+          <!-- Le domande saranno inserite via JS -->
+          <div id="questions-wrap"></div>
+        </form>
+        <p id="send-status" class="small"></p>
+      </div>
+      <div class="actions">
+        <button type="button" class="secondary" id="btn-reset">Reset</button>
+        <button type="button" class="primary" id="btn-submit">Vedi risultato & Salva</button>
+        <div class="progress" aria-label="Progresso compilazione"><span id="progress-bar"></span></div>
+      </div>
+
+      <div id="result" class="result" role="region" aria-live="polite" aria-atomic="true">
+        <div id="result-badges" style="margin-bottom:8px;"></div>
+        <h2 id="result-title"></h2>
+        <p id="result-text" class="note"></p>
+        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;">
+          <button type="button" class="secondary" id="btn-copy" title="Copia il risultato">Copia risultato</button>
+          <button type="button" class="secondary" id="btn-share" title="Condividi">Condividi</button>
+          <button type="button" class="primary" id="btn-again">Ricomincia</button>
+        </div>
+        <p class="small" style="margin-top:10px;">Suggerimento: premi “Ricomincia” per rifare il test o condividi il risultato con gli amici.</p>
+      </div>
+    </section>
+
+    <aside class="box">
+      <h3 style="margin-top:0;">Come funziona il salvataggio</h3>
+      <ol>
+        <li>Questo file invia (via HTTPS) le risposte a uno <strong>Apps Script Web App</strong> collegato a un <strong>Google Sheet</strong>.</li>
+        <li>Nessun dato è salvato sul server del sito (solo su Google Sheets dell'organizzatore).</li>
+        <li>Se l'endpoint non è configurato, il quiz funziona comunque (solo locale) e mostra un avviso.</li>
+      </ol>
+      <p class="small">Consiglio: usa un foglio dedicato con colonne preimpostate e condividi il link <em>sola visualizzazione</em> con chi deve monitorare i risultati.</p>
+    </aside>
+  </div>
+
+  <footer>
+    © <span id="year"></span> • Test “Quale pesce sei?” • Creato con ❤️
+  </footer>
+
+  <script>
+    // 🔧 INSERISCI QUI l'URL del tuo Apps Script Web App (vedi istruzioni)
+    // Esempio: const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx.../exec";
+    const SCRIPT_URL = ""; // <--- Sostituisci con il tuo URL quando lo hai pubblicato
+
+    const FISH = {
+      "Pesce Gatto": {
+        title: "PESCE GATTO",
+        text: "A TE PROPI UN PASGÀT! A volte un pò superficiale e distratto, prendi la vita con leggerezza. Non ti fai troppi problemi, e spesso sei quello che riesce a strappare una risata agli altri con la tua spontaneità. Sei frivolo, allegro, capace di divertirti anche nelle situazioni più banali. E alla fine, tutti ti vogliono bene perché porti leggerezza ovunque. Bravo Pesce Gatto: ti sei guadagnato l’adesivo speciale, vieni a ritirarlo al banchetto della Risalita dei pesci!"
+      },
+      "Siluro": {
+        title: "SILURO",
+        text: "Sei un SILURO, il gigante del fiume! Forte, energico e deciso, quando entri in una situazione non passi inosservato. Sei un leader naturale, ami prendere in mano le cose e non hai paura di buttarti nelle sfide più impegnative. Attento però a non occupare troppo spazio: a volte la tua potenza può mettere in ombra gli altri. Ma nel complesso, sei carisma puro."
+      },
+      "Storione": {
+        title: "STORIONE",
+        text: "Sei uno STORIONE, antico e saggio. Hai memoria, profondità e spesso sei il punto di riferimento per chi ti sta vicino. Non corri dietro alle mode, preferisci la stabilità e la tradizione, e gli amici ti vedono come una persona affidabile, che dà sicurezza. Forse non sei il più rumoroso del gruppo, ma quando parli, lasci il segno."
+      },
+      "Carpa": {
+        title: "CARPA",
+        text: "Sei una CARPA: tranquillo, socievole, un amico vero. Ti piace la serenità, non ami i conflitti e sei quello che riesce sempre a riportare l’armonia nel gruppo. Non hai bisogno di stare al centro dell’attenzione, preferisci circondarti di persone con cui ti senti bene. Sei il collante che tiene unito il branco: affidabile, dolce e sempre disponibile."
+      },
+      "Anguilla": {
+        title: "ANGUILLA",
+        text: "Sei un’ANGUILLA: misterioso, creativo, imprevedibile. Gli altri non sanno mai cosa aspettarsi da te, e questo ti rende affascinante. Ami uscire dagli schemi, sorprendere con idee diverse e a volte sembri quasi inafferrabile. Non ti piace essere imbrigliato: sei libero e indipendente, e chi ti conosce non si annoia mai."
+      }
+    };
+
+    const QUESTIONS = [
+      {
+        q: "Domanda 1: Sei a una cena con amici. Ti servono un piatto che non conosci..",
+        options: [
+          ["Lo assaggio senza sapere cos’è, tanto… che sarà mai!", "Pesce Gatto"],
+          ["Voglio capire bene cosa c’è dentro prima di provarlo", "Storione"],
+          ["Lo condivido con tutti, così è più divertente", "Carpa"],
+          ["Ne mangio un po’, poi mi invento una scusa strana", "Anguilla"],
+          ["Mi butto e lo mangio tutto senza pensarci due volte", "Siluro"]
+        ]
+      },
+      {
+        q: "Domanda 2: Se il tuo weekend fosse un film, che genere sarebbe?",
+        options: [
+          ["Commedia stile una notte da leoni, dove il giorno dopo non ti ricordi più nulla", "Pesce Gatto"],
+          ["Saltare da un palazzo in fiamme con una mustang? Ogni weekend", "Siluro"],
+          ["Un bel film storico sul divano, camino acceso", "Storione"],
+          ["Commedia comica, un tavolo, piatti di ogni genere e risate a non finire", "Carpa"],
+          ["Mistero e incontri sovrannaturali", "Anguilla"]
+        ]
+      },
+      {
+        q: "Domanda 3: Se fossi un drink, quale saresti?",
+        options: [
+          ["Un gin tonic come si deve", "Pesce Gatto"],
+          ["Un vino rosso corposo", "Storione"],
+          ["Una cochina ghiaccio e limone", "Carpa"],
+          ["Un cocktail inedito, improvvisato al momento", "Anguilla"],
+          ["Un Negroni o uno Sbagliato", "Siluro"]
+        ]
+      },
+      {
+        q: "Domanda 4: In un gruppo di lavoro tu sei quello che…",
+        options: [
+          ["Dice \"ci pensiamo domani\" e intanto scrolla i reel su instagram", "Pesce Gatto"],
+          ["Mette ordine e tiene memoria di tutto", "Storione"],
+          ["Tiene unito il gruppo e smorza i conflitti", "Carpa"],
+          ["Trova la soluzione più bizzarra, ma che funziona", "Anguilla"],
+          ["Prende in mano la situazione e decide", "Siluro"]
+        ]
+      },
+      {
+        q: "Domanda 5: Sei in viaggio e ti perdi. Cosa fai?",
+        options: [
+          ["Scatto un selfie instagrammabile e me la rido", "Pesce Gatto"],
+          ["Controllo la mappa e cerco di ritornare sui miei passi", "Storione"],
+          ["Chiedo indicazioni con calma a qualcuno", "Carpa"],
+          ["Vado a caso, convinto che sia un’avventura", "Anguilla"],
+          ["Seguo l’istinto e cammino dritto fino a destinazione", "Siluro"]
+        ]
+      },
+      {
+        q: "Domanda 6: In una cena con amici, tu sei quello che…",
+        options: [
+          ["Commenta ironicamente dietro le quinte come la Giallapa's Band", "Pesce Gatto"],
+          ["Racconta vecchi aneddoti e fa riflettere tutti", "Storione"],
+          ["Fa partire i brindisi e mette d’accordo tutti", "Carpa"],
+          ["Sparisce un’ora e poi ricompare con una storia assurda", "Anguilla"],
+          ["Tiene banco raccontando storie e battute", "Siluro"]
+        ]
+      },
+      {
+        q: "Domanda 7: Ti propongono un viaggio last-minute. Come reagisci?",
+        options: [
+          ["Accetto solo se il viaggio è offerto", "Pesce Gatto"],
+          ["Parto solo se c’è un programma chiaro e definito", "Storione"],
+          ["Chiamo gli amici e organizziamo in gruppo", "Carpa"],
+          ["Scelgo le esperienze più strane da fare", "Anguilla"],
+          ["Mi gaso, sarà un’avventura piena di adrenalina", "Siluro"]
+        ]
+      }
+    ];
+
+    const form = document.getElementById('quiz-form');
+    const qWrap = document.getElementById('questions-wrap');
+    const resultEl = document.getElementById('result');
+    const titleEl = document.getElementById('result-title');
+    const textEl = document.getElementById('result-text');
+    const badgesEl = document.getElementById('result-badges');
+    const progress = document.getElementById('progress-bar');
+    const btnSubmit = document.getElementById('btn-submit');
+    const btnReset = document.getElementById('btn-reset');
+    const btnAgain = document.getElementById('btn-again');
+    const btnCopy = document.getElementById('btn-copy');
+    const btnShare = document.getElementById('btn-share');
+    const year = document.getElementById('year');
+    const sendStatus = document.getElementById('send-status');
+    year.textContent = new Date().getFullYear();
+
+    function renderQuestions(){
+      let html = '';
+      QUESTIONS.forEach((item, idx) => {
+        const qId = `q${idx+1}`;
+        html += `<fieldset class="q"><legend class="hidden">Domanda ${idx+1}</legend>`;
+        html += `<h3>${item.q}</h3>`;
+        html += `<div class="options" role="radiogroup" aria-labelledby="${qId}-label">`;
+        item.options.forEach((op, oi) => {
+          const id = `${qId}-opt${oi+1}`;
+          html += `<label class="option" for="${id}">
+            <input type="radio" name="${qId}" id="${id}" value="${op[1]}" required />
+            <span>${op[0]} → <strong>${op[1]}</strong></span>
+          </label>`;
+        });
+        html += `</div></fieldset>`;
+      });
+      qWrap.innerHTML = html;
+    }
+    renderQuestions();
+
+    function updateProgress(){
+      const total = QUESTIONS.length + 2; // 2 fields anagrafici
+      let count = 0;
+      const data = new FormData(form);
+      if(data.get('nomeCognome')) count++;
+      if(data.get('cittaProvincia')) count++;
+      for(let i=1;i<=QUESTIONS.length;i++){ if(data.get('q'+i)) count++; }
+      progress.style.width = Math.round(count/total*100) + '%';
+    }
+    form.addEventListener('input', updateProgress);
+
+    function computeResult(){
+      const data = new FormData(form);
+      const scores = {"Pesce Gatto":0,"Siluro":0,"Storione":0,"Carpa":0,"Anguilla":0};
+      const missing = [];
+      if(!data.get('nomeCognome')) missing.push("Nome e Cognome");
+      if(!data.get('cittaProvincia')) missing.push("Città e Provincia");
+      QUESTIONS.forEach((_, i) => {
+        const key = `q${i+1}`;
+        const val = data.get(key);
+        if(!val){ missing.push("Domanda " + (i+1)); }
+        else { scores[val]++; }
+      });
+      if(missing.length){
+        alert("Compila tutti i campi (mancano: " + missing.join(", ") + ").");
+        return null;
+      }
+      const max = Math.max(...Object.values(scores));
+      const winners = Object.entries(scores).filter(([k,v]) => v === max).map(([k]) => k);
+      return {data, scores, winners, max};
+    }
+
+    function fishInfoFromWinners(winners){
+      if(winners.length === 1){
+        const fish = winners[0];
+        const info = FISH[fish];
+        return {title:`Risultato: ${info.title}`, text:info.text, badges:[info.title]};
+      } else {
+        const titles = winners.map(w => FISH[w].title);
+        return {
+          title:`Risultato: Mix di ${titles.join(" + ")}`,
+          text:"Parità! Sei un mix equilibrato di più pesci: " + winners.join(", ") + ". Versatile e sfaccettato: scegli di volta in volta l’energia che ti serve.",
+          badges: titles
+        };
+      }
+    }
+
+    async function sendToSheet(payload){
+      if(!SCRIPT_URL){
+        sendStatus.innerHTML = "<span class='error'>⚠️ Salvataggio su Google Sheets non attivo (SCRIPT_URL non impostato). Il test funziona comunque.</span>";
+        return {ok:false, skipped:true};
+      }
+      try{
+        sendStatus.textContent = "Invio in corso…";
+        const res = await fetch(SCRIPT_URL, {
+          method:"POST",
+          headers: { "Content-Type":"application/json" },
+          body: JSON.stringify(payload)
+        });
+        const json = await res.json().catch(()=> ({}));
+        if(res.ok){
+          sendStatus.innerHTML = "<span class='success'>✅ Risposte salvate correttamente.</span>";
+          return {ok:true, json};
+        }else{
+          throw new Error(json.error || ("HTTP " + res.status));
+        }
+      }catch(err){
+        console.error(err);
+        sendStatus.innerHTML = "<span class='error'>❌ Errore durante il salvataggio: " + (err.message || err) + "</span>";
+        return {ok:false, error:String(err)};
+      }
+    }
+
+    function showResultView(info){
+      badgesEl.innerHTML = info.badges.map(b => `<span class="badge">🏅 ${b}</span>`).join(" ");
+      titleEl.textContent = info.title;
+      textEl.textContent = info.text;
+      resultEl.style.display = 'block';
+      resultEl.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+
+    async function handleSubmit(){
+      const result = computeResult();
+      if(!result) return;
+      const name = result.data.get('nomeCognome').trim();
+      const city = result.data.get('cittaProvincia').trim();
+
+      // Raccogli le risposte scelte
+      const choices = [];
+      for(let i=1;i<=QUESTIONS.length;i++){
+        choices.push(result.data.get('q'+i));
+      }
+
+      const info = fishInfoFromWinners(result.winners);
+      const payload = {
+        timestamp: new Date().toISOString(),
+        name, city,
+        choices, // array di 7 voci: a quale pesce è stata assegnata la risposta
+        scores: result.scores,
+        winners: result.winners,
+        page: location.href,
+        ua: navigator.userAgent
+      };
+
+      await sendToSheet(payload);
+      showResultView(info);
+    }
+
+    btnSubmit.addEventListener('click', handleSubmit);
+    btnAgain?.addEventListener('click', () => { form.reset(); updateProgress(); resultEl.style.display = 'none'; window.scrollTo({top:0, behavior:'smooth'}); });
+    btnReset.addEventListener('click', () => { form.reset(); updateProgress(); resultEl.style.display = 'none'; sendStatus.textContent = ""; });
+
+    btnCopy.addEventListener('click', async () => {
+      const text = (titleEl.textContent || "").trim() + "\n\n" + (textEl.textContent || "").trim();
+      try{ await navigator.clipboard.writeText(text); btnCopy.textContent = "✅ Copiato"; setTimeout(()=> btnCopy.textContent = "Copia risultato", 1500); }
+      catch(e){ alert("Copia non riuscita, prova manualmente."); }
+    });
+
+    btnShare.addEventListener('click', async () => {
+      const shareData = { title: "Test: Quale pesce sei?", text: titleEl.textContent + " — " + textEl.textContent.slice(0, 140) + "…", url: window.location.href };
+      if(navigator.share){ try{ await navigator.share(shareData); } catch(e){} }
+      else { alert("Condivisione non supportata dal dispositivo. Copia il link dalla barra degli indirizzi."); }
+    });
+
+    updateProgress();
+  </script>
+</body>
+</html>
