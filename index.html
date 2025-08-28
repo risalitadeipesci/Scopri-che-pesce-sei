@@ -1,103 +1,87 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="it">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2575.4">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Scopri che pesce sei – Test di Personalità</title>
+  <meta name="description" content="Test gratuito: 7 domande, 5 opzioni. Scopri se sei Pesce Gatto, Siluro, Storione, Carpa o Anguilla.">
+  <style>
+    :root{ --bg:#0e141b; --border:#1f2a37; --text:#e5f0ff; --muted:#94a3b8; --accent:#57c1ff; --accent-2:#8effb1; --panel: rgba(255,255,255,.03); }
+    *{box-sizing:border-box}
+    body{ margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial; background:#0e141b; color:var(--text); line-height:1.6; }
+    header{ padding:32px 16px 8px; text-align:center; }
+    header h1{ margin:0; font-weight:800; letter-spacing:.2px; font-size:clamp(1.5rem,3.5vw,2.2rem); }
+    header p{ margin:.35rem 0 0; color:var(--muted); font-size:clamp(.95rem,2.2vw,1.05rem); }
+    .container{ max-width:980px; margin:16px auto 56px; padding:0 16px; }
+    .card{ border:1px solid var(--border); border-radius:20px; overflow:hidden; background:var(--panel); box-shadow:0 10px 30px rgba(0,0,0,.25); }
+    .card-body{ padding:18px; }
+    .q{ padding:14px; margin:12px 0; border:1px solid var(--border); border-radius:16px; background:var(--panel); }
+    .q h3{ margin:0 0 8px; font-size:1.05rem; }
+    .options{ display:grid; gap:8px; }
+    label.option{ display:flex; gap:10px; align-items:flex-start; padding:10px 12px; border-radius:12px; background:rgba(255,255,255,.02); cursor:pointer; transition:.12s ease; }
+    label.option:hover{ background:rgba(255,255,255,.05); }
+    input[type="radio"]{ margin-top:3px; transform:scale(1.05); accent-color:var(--accent); }
+    .field-grid{ display:grid; gap:12px; grid-template-columns:1fr; }
+    @media(min-width:700px){ .field-grid{ grid-template-columns:1fr 1fr; } }
+    .field{ display:flex; flex-direction:column; gap:6px; }
+    .field input{ background:#0b1420; border:1px solid var(--border); border-radius:10px; color:var(--text); padding:10px 12px; }
+    .actions{ display:flex; gap:10px; align-items:center; padding:12px 16px; border-top:1px solid var(--border); background:var(--panel); }
+    .progress{ flex:1; height:10px; background:#0b1420; border:1px solid var(--border); border-radius:999px; overflow:hidden; }
+    .progress>span{ display:block; height:100%; width:0%; background:linear-gradient(90deg,var(--accent),var(--accent-2)); transition:width .25s ease; }
+    button{ padding:10px 14px; border-radius:10px; border:1px solid var(--border); background:#152234; color:var(--text); font-weight:700; cursor:pointer; }
+    button.primary{ background:linear-gradient(180deg,#41b6ff,#2a9df7); color:#00243a; border:none; }
+    .result{ display:none; padding:18px; border-top:1px solid var(--border); }
+    .badge{ display:inline-flex; gap:8px; padding:6px 10px; border:1px solid var(--border); border-radius:999px; }
+    .small{ color:var(--muted); font-size:.92rem; }
   </style>
 </head>
 <body>
-<p class="p1">&lt;!DOCTYPE html&gt;</p>
-<p class="p1">&lt;html lang="it"&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta charset="UTF-8" /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1" /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;title&gt;Scopri che pesce sei – Test di Personalità&lt;/title&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta name="description" content="Test gratuito: 7 domande, 5 opzioni. Scopri se sei Pesce Gatto, Siluro, Storione, Carpa o Anguilla."&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;style&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>:root{ --bg:#0e141b; --border:#1f2a37; --text:#e5f0ff; --muted:#94a3b8; --accent:#57c1ff; --accent-2:#8effb1; --panel: rgba(255,255,255,.03); }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>*{box-sizing:border-box}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>body{ margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial; background:#0e141b; color:var(--text); line-height:1.6; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>header{ padding:32px 16px 8px; text-align:center; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>header h1{ margin:0; font-weight:800; letter-spacing:.2px; font-size:clamp(1.5rem,3.5vw,2.2rem); }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>header p{ margin:.35rem 0 0; color:var(--muted); font-size:clamp(.95rem,2.2vw,1.05rem); }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.container{ max-width:980px; margin:16px auto 56px; padding:0 16px; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.card{ border:1px solid var(--border); border-radius:20px; overflow:hidden; background:var(--panel); box-shadow:0 10px 30px rgba(0,0,0,.25); }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.card-body{ padding:18px; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.q{ padding:14px; margin:12px 0; border:1px solid var(--border); border-radius:16px; background:var(--panel); }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.q h3{ margin:0 0 8px; font-size:1.05rem; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.options{ display:grid; gap:8px; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>label.option{ display:flex; gap:10px; align-items:flex-start; padding:10px 12px; border-radius:12px; background:rgba(255,255,255,.02); cursor:pointer; transition:.12s ease; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>label.option:hover{ background:rgba(255,255,255,.05); }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>input[type="radio"]{ margin-top:3px; transform:scale(1.05); accent-color:var(--accent); }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.field-grid{ display:grid; gap:12px; grid-template-columns:1fr; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>@media(min-width:700px){ .field-grid{ grid-template-columns:1fr 1fr; } }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.field{ display:flex; flex-direction:column; gap:6px; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.field input{ background:#0b1420; border:1px solid var(--border); border-radius:10px; color:var(--text); padding:10px 12px; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.actions{ display:flex; gap:10px; align-items:center; padding:12px 16px; border-top:1px solid var(--border); background:var(--panel); }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.progress{ flex:1; height:10px; background:#0b1420; border:1px solid var(--border); border-radius:999px; overflow:hidden; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.progress&gt;span{ display:block; height:100%; width:0%; background:linear-gradient(90deg,var(--accent),var(--accent-2)); transition:width .25s ease; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>button{ padding:10px 14px; border-radius:10px; border:1px solid var(--border); background:#152234; color:var(--text); font-weight:700; cursor:pointer; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>button.primary{ background:linear-gradient(180deg,#41b6ff,#2a9df7); color:#00243a; border:none; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.result{ display:none; padding:18px; border-top:1px solid var(--border); }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.badge{ display:inline-flex; gap:8px; padding:6px 10px; border:1px solid var(--border); border-radius:999px; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.small{ color:var(--muted); font-size:.92rem; }</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/style&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p1">&lt;body&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;header&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;h1&gt;Test di Personalità 🐟 Quale pesce sei?&lt;/h1&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;p&gt;Rispondi alle 7 domande e scopri la tua energia acquatica dominante.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/header&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="container"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;section class="card"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="card-body"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;form id="quiz-form" autocomplete="on"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;fieldset class="q"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;h3&gt;Prima di iniziare&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="field-grid"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;label class="field"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;span&gt;Nome e Cognome&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;input type="text" id="nomeCognome" name="nomeCognome" placeholder="Es. Mario Rossi" required&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;label class="field"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;span&gt;Città e Provincia&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;input type="text" id="cittaProvincia" name="cittaProvincia" placeholder="Es. Parma (PR)" required&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/fieldset&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div id="questions-wrap"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/form&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="actions"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;button id="btn-reset" type="button"&gt;Reset&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;button id="btn-submit" type="button" class="primary"&gt;Vedi risultato&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="progress" aria-label="Progresso compilazione"&gt;&lt;span id="progress-bar"&gt;&lt;/span&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div id="result" class="result"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div id="result-badges" style="margin-bottom:8px;"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;h2 id="result-title"&gt;&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;p id="result-text" class="small"&gt;&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;button type="button" id="btn-copy"&gt;Copia risultato&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;button type="button" id="btn-share"&gt;Condividi&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;button type="button" class="primary" id="btn-again"&gt;Ricomincia&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/section&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- Carica lo script esterno con tutta la logica --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;script src="script.js" defer&gt;&lt;/script&gt;</p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
+  <header>
+    <h1>Test di Personalità 🐟 Quale pesce sei?</h1>
+    <p>Rispondi alle 7 domande e scopri la tua energia acquatica dominante.</p>
+  </header>
+
+  <div class="container">
+    <section class="card">
+      <div class="card-body">
+        <form id="quiz-form" autocomplete="on">
+          <fieldset class="q">
+            <h3>Prima di iniziare</h3>
+            <div class="field-grid">
+              <label class="field">
+                <span>Nome e Cognome</span>
+                <input type="text" id="nomeCognome" name="nomeCognome" placeholder="Es. Mario Rossi" required>
+              </label>
+              <label class="field">
+                <span>Città e Provincia</span>
+                <input type="text" id="cittaProvincia" name="cittaProvincia" placeholder="Es. Parma (PR)" required>
+              </label>
+            </div>
+          </fieldset>
+          <div id="questions-wrap"></div>
+        </form>
+      </div>
+
+      <div class="actions">
+        <button id="btn-reset" type="button">Reset</button>
+        <button id="btn-submit" type="button" class="primary">Vedi risultato</button>
+        <div class="progress" aria-label="Progresso compilazione"><span id="progress-bar"></span></div>
+      </div>
+
+      <div id="result" class="result">
+        <div id="result-badges" style="margin-bottom:8px;"></div>
+        <h2 id="result-title"></h2>
+        <p id="result-text" class="small"></p>
+        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;">
+          <button type="button" id="btn-copy">Copia risultato</button>
+          <button type="button" id="btn-share">Condividi</button>
+          <button type="button" class="primary" id="btn-again">Ricomincia</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Carica lo script esterno con tutta la logica -->
+  <script src="script.js?v=1" defer></script>
 </body>
 </html>
