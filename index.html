@@ -8,6 +8,7 @@
   <meta name="CocoaVersion" content="2575.4">
   <style type="text/css">
     p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
   </style>
 </head>
 <body>
@@ -28,8 +29,7 @@
 <p class="p1"><span class="Apple-converted-space">    </span>header{ padding:32px 16px 8px; text-align:center; }</p>
 <p class="p1"><span class="Apple-converted-space">    </span>header h1{ margin:0; font-weight:800; letter-spacing:.2px; font-size:clamp(1.5rem,3.5vw,2.2rem); }</p>
 <p class="p1"><span class="Apple-converted-space">    </span>header p{ margin:.35rem 0 0; color:var(--muted); font-size:clamp(.95rem,2.2vw,1.05rem); }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.container{ max-width:980px; margin:16px auto 56px; padding:0 16px; display:grid; gap:16px; grid-template-columns:1fr; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>@media(min-width:940px){ .container{ grid-template-columns:1.25fr .75fr; } }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.container{ max-width:980px; margin:16px auto 56px; padding:0 16px; }</p>
 <p class="p1"><span class="Apple-converted-space">    </span>.card{ border:1px solid var(--border); border-radius:20px; overflow:hidden; background:var(--panel); box-shadow:0 10px 30px rgba(0,0,0,.25); }</p>
 <p class="p1"><span class="Apple-converted-space">    </span>.card-body{ padding:18px; }</p>
 <p class="p1"><span class="Apple-converted-space">    </span>.q{ padding:14px; margin:12px 0; border:1px solid var(--border); border-radius:16px; background:var(--panel); }</p>
@@ -41,6 +41,115 @@
 <p class="p1"><span class="Apple-converted-space">    </span>.field-grid{ display:grid; gap:12px; grid-template-columns:1fr; }</p>
 <p class="p1"><span class="Apple-converted-space">    </span>@media(min-width:700px){ .field-grid{ grid-template-columns:1fr 1fr; } }</p>
 <p class="p1"><span class="Apple-converted-space">    </span>.field{ display:flex; flex-direction:column; gap:6px; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.field input{ background:#0b1420; border:1px solid var(--border); border-radius:10px; colo</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.field input{ background:#0b1420; border:1px solid var(--border); border-radius:10px; color:var(--text); padding:10px 12px; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.actions{ display:flex; gap:10px; align-items:center; padding:12px 16px; border-top:1px solid var(--border); background:var(--panel); }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.progress{ flex:1; height:10px; background:#0b1420; border:1px solid var(--border); border-radius:999px; overflow:hidden; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.progress&gt;span{ display:block; height:100%; width:0%; background:linear-gradient(90deg,var(--accent),var(--accent-2)); transition:width .25s ease; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>button{ padding:10px 14px; border-radius:10px; border:1px solid var(--border); background:#152234; color:var(--text); font-weight:700; cursor:pointer; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>button.primary{ background:linear-gradient(180deg,#41b6ff,#2a9df7); color:#00243a; border:none; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.result{ display:none; padding:18px; border-top:1px solid var(--border); }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.badge{ display:inline-flex; gap:8px; padding:6px 10px; border:1px solid var(--border); border-radius:999px; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.small{ color:var(--muted); font-size:.92rem; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;header&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;h1&gt;Test di Personalità 🐟 Quale pesce sei?&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;p&gt;Rispondi alle 7 domande e scopri la tua energia acquatica dominante.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/header&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="container"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;section class="card"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="card-body"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;form id="quiz-form" autocomplete="on"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;fieldset class="q"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;h3&gt;Prima di iniziare&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="field-grid"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;label class="field"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;span&gt;Nome e Cognome&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;input type="text" id="nomeCognome" name="nomeCognome" placeholder="Es. Mario Rossi" required&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;label class="field"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;span&gt;Città e Provincia&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;input type="text" id="cittaProvincia" name="cittaProvincia" placeholder="Es. Parma (PR)" required&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/fieldset&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div id="questions-wrap"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/form&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="actions"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button id="btn-reset" type="button"&gt;Reset&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button id="btn-submit" type="button" class="primary"&gt;Vedi risultato&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="progress" aria-label="Progresso compilazione"&gt;&lt;span id="progress-bar"&gt;&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div id="result" class="result"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div id="result-badges" style="margin-bottom:8px;"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;h2 id="result-title"&gt;&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;p id="result-text" class="small"&gt;&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;button type="button" id="btn-copy"&gt;Copia risultato&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;button type="button" id="btn-share"&gt;Condividi&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;button type="button" class="primary" id="btn-again"&gt;Ricomincia&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/section&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>// https://script.google.com/macros/s/AKfycbwhCuXJjJGnRIaIg6UorvC6LFHWwl0bx5BSXmcjPyHG8pYEAKiL2qD19XTjxrf6mzH5Rg/exec</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const SCRIPT_URL = "";</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>// Profili singoli</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const FISH = {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>"Pesce Gatto": {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>title: "PESCE GATTO",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>text: "A TE PROPI UN PASGÀT! A volte un pò superficiale e distratto, prendi la vita con leggerezza. Non ti fai troppi problemi, e spesso sei quello che riesce a strappare una risata agli altri con la tua spontaneità. Sei frivolo, allegro, capace di divertirti anche nelle situazioni più banali. E alla fine, tutti ti vogliono bene perché porti leggerezza ovunque. Bravo Pesce Gatto: ti sei guadagnato l’adesivo speciale, vieni a ritirarlo al banchetto della Risalita dei pesci!"</p>
+<p class="p1"><span class="Apple-converted-space">      </span>},</p>
+<p class="p1"><span class="Apple-converted-space">      </span>"Siluro": {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>title: "SILURO",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>text: "Sei un SILURO, il gigante del fiume! Forte, energico e deciso, quando entri in una situazione non passi inosservato. Sei un leader naturale, ami prendere in mano le cose e non hai paura di buttarti nelle sfide più impegnative. Attento però a non occupare troppo spazio: a volte la tua potenza può mettere in ombra gli altri. Ma nel complesso, sei carisma puro."</p>
+<p class="p1"><span class="Apple-converted-space">      </span>},</p>
+<p class="p1"><span class="Apple-converted-space">      </span>"Storione": {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>title: "STORIONE",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>text: "Sei uno STORIONE, antico e saggio. Hai memoria, profondità e spesso sei il punto di riferimento per chi ti sta vicino. Non corri dietro alle mode, preferisci la stabilità e la tradizione, e gli amici ti vedono come una persona affidabile, che dà sicurezza. Forse non sei il più rumoroso del gruppo, ma quando parli, lasci il segno."</p>
+<p class="p1"><span class="Apple-converted-space">      </span>},</p>
+<p class="p1"><span class="Apple-converted-space">      </span>"Carpa": {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>title: "CARPA",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>text: "Sei una CARPA: tranquillo, socievole, un amico vero. Ti piace la serenità, non ami i conflitti e sei quello che riesce sempre a riportare l’armonia nel gruppo. Non hai bisogno di stare al centro dell’attenzione, preferisci circondarti di persone con cui ti senti bene. Sei il collante che tiene unito il branco: affidabile, dolce e sempre disponibile."</p>
+<p class="p1"><span class="Apple-converted-space">      </span>},</p>
+<p class="p1"><span class="Apple-converted-space">      </span>"Anguilla": {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>title: "ANGUILLA",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>text: "Sei un’ANGUILLA: misterioso, creativo, imprevedibile. Gli altri non sanno mai cosa aspettarsi da te, e questo ti rende affascinante. Ami uscire dagli schemi, sorprendere con idee diverse e a volte sembri quasi inafferrabile. Non ti piace essere imbrigliato: sei libero e indipendente, e chi ti conosce non si annoia mai."</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>// Profili MIX (parità a 2) — discorsivi e completi</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const TIE_RESULTS = {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>"Anguilla|Carpa": {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>title: "Mix: ANGUILLA + CARPA",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>text: "Sei un connettore creativo. Hai il gusto dell’imprevisto ma senza perdere la gentilezza: cerchi l’armonia nel gruppo e allo stesso tempo sparigli con idee originali che fanno sorridere e riflettere. Con te le persone si sentono a proprio agio, perché riesci a combinare empatia e fantasia: sai coinvolgere, proporre alternative e trasformare un incontro normale in qualcosa di speciale."</p>
+<p class="p1"><span class="Apple-converted-space">      </span>},</p>
+<p class="p1"><span class="Apple-converted-space">      </span>"Anguilla|Pesce Gatto": {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>title: "Mix: ANGUILLA + PESCE GATTO",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>text: "Ironia e immaginazione ti vengono naturali. Prendi la vita con leggerezza ma non per questo sei superficiale: la tua creatività spunta dove gli altri vedono routine, e spesso sei tu a cambiare l’umore di una stanza con una battuta o un’idea fuori dal coro. Spontaneo, versatile, sorprendi senza fare rumore e lasci dietro di te buonumore e curiosità."</p>
+<p class="p1"><span class="Apple-converted-space">      </span>},</p>
+<p class="p1"><span class="Apple-converted-space">      </span>"Anguilla|Siluro": {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>title: "Mix: ANGUILLA + SILURO",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>text: "Visione e azione: sogni soluzioni diverse e poi trovi il modo di farle accadere davvero. Hai il coraggio di osare e la fantasia per tracciare strade nuove. Guida naturale, ma mai scontata: la tua energia è magnetica e inviti gli altri a buttarsi in esperienze che raccontano chi sei, con una scintilla di sana follia."</p>
+<p class="p1"><span class="Apple-converted-space">      </span>},</p>
+<p class="p1"><span class="Apple-converted-space">      </span>"Anguilla|Storione": {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>title: "Mix: ANGUILLA + STORIONE",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>text: "Originale con profondità. Ami esplorare strade non battute, ma lo fai con giudizio e memoria. Sai dare un senso alle novità, collegandole a ciò che conta davvero. Le persone si fidano di te perché unisci creatività e saggezza: non cerchi solo l’effetto wow, ma un significato che resti."</p>
+<p class="p1"><span class="Apple-converted-space">      </span>},</p>
+<p class="p1"><span class="Apple-converted-space">      </span>"Carpa|Pesce Gatto": {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>title: "Mix: CARPA + PESCE GATTO",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>text: "Il tuo superpotere è portare leggerezza nelle relazioni. Fai gruppo, smorzi i conflitti e ricordi agli altri che si può stare bene anche nelle piccole cose. Sei accogliente e scanzonato al punto giusto: con te, ogni cena ha il suo momento di risate sincere e feeling vero."</p>
+<p class="p1"><span class="Apple-converted-space">      </span>},</p>
+<p class="p1"><span class="Apple-converted-space">      </span>"Carpa|Siluro": {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>title: "Mix: CARPA + SILURO",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>text: "Guida e ascolto: sai tenere il timone senza perdere di vista chi hai accanto. Pratico, deciso, ma capace di creare unità: trasformi gli obiettivi in azione e ti</p>
 </body>
 </html>
