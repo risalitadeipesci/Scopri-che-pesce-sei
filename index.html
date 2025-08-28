@@ -44,22 +44,21 @@
   <div class="container">
     <section class="card">
       <div class="card-body">
-        <form id="quiz-form" autocomplete="on">
-          <fieldset class="q">
-            <h3>Prima di iniziare</h3>
-            <div class="field-grid">
-              <label class="field">
-                <span>Nome e Cognome</span>
-                <input type="text" id="nomeCognome" name="nomeCognome" placeholder="Es. Mario Rossi" required>
-              </label>
-              <label class="field">
-                <span>Città e Provincia</span>
-                <input type="text" id="cittaProvincia" name="cittaProvincia" placeholder="Es. Parma (PR)" required>
-              </label>
-            </div>
-          </fieldset>
-          <div id="questions-wrap"></div>
-        </form>
+        <form name="quiz" id="quiz-form" method="POST" data-netlify="true">
+  <input type="hidden" name="form-name" value="quiz" />
+
+  <!-- i tuoi campi aggiuntivi -->
+  <label>Nome e Cognome:
+    <input type="text" name="nomeCognome" required>
+  </label>
+  <label>Città e Provincia:
+    <input type="text" name="cittaProvincia" required>
+  </label>
+
+  <div id="questions-wrap"></div>
+
+  <button type="submit" id="btn-submit">Vedi risultato</button>
+</form>
       </div>
 
       <div class="actions">
