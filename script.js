@@ -1,4 +1,4 @@
-// https://script.google.com/macros/s/AKfycbwhCuXJjJGnRIaIg6UorvC6LFHWwl0bx5BSXmcjPyHG8pYEAKiL2qD19XTjxrf6mzH5Rg/exec
+https://script.google.com/macros/s/AKfycbxfpce3hLNvl--7oGhEHpkYx8hNmk6B6svzft4PpmKpIWAie5upTVwwyRbOMtbS8Pmt2Q/exec
 const SCRIPT_URL = ""; // es: "https://script.google.com/macros/s/AKfycbx.../exec"
 
 // Profili singoli
