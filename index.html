@@ -44,27 +44,51 @@
   <div class="container">
     <section class="card">
       <div class="card-body">
-        <form name="quiz" id="quiz-form" method="POST" data-netlify="true">
-  <input type="hidden" name="form-name" value="quiz" />
+        <!--
+          FORM Netlify “vero”.
+          - data-netlify: attiva Netlify Forms
+          - netlify-honeypot: antispam
+          - action: pagina di ringraziamento dopo l’invio (crea /grazie.html)
+        -->
+        <form
+          name="quiz"
+          id="quiz-form"
+          method="POST"
+          data-netlify="true"
+          netlify-honeypot="bot-field"
+          action="/grazie.html"
+        >
+          <input type="hidden" name="form-name" value="quiz" />
+          <p style="display:none;">
+            <label>Non compilare questo campo: <input name="bot-field" /></label>
+          </p>
 
-  <!-- i tuoi campi aggiuntivi -->
-  <label>Nome e Cognome:
-    <input type="text" name="nomeCognome" required>
-  </label>
-  <label>Città e Provincia:
-    <input type="text" name="cittaProvincia" required>
-  </label>
+          <!-- Dati utente -->
+          <div class="field-grid" style="margin-bottom:12px;">
+            <div class="field">
+              <label for="nomeCognome">Nome e Cognome</label>
+              <input type="text" id="nomeCognome" name="nomeCognome" required />
+            </div>
+            <div class="field">
+              <label for="cittaProvincia">Città e Provincia</label>
+              <input type="text" id="cittaProvincia" name="cittaProvincia" required />
+            </div>
+          </div>
 
-  <div id="questions-wrap"></div>
+          <!-- QUIZ -->
+          <div id="questions-wrap" aria-live="polite"></div>
 
-  <button type="submit" id="btn-submit">Vedi risultato</button>
-</form>
-      </div>
+          <!-- Questi campi vengono riempiti da script.js prima dell’invio -->
+          <input type="hidden" name="risposte" id="risposte" />
+          <input type="hidden" name="punteggio" id="punteggio" />
+          <input type="hidden" name="risultato" id="risultato" />
 
-      <div class="actions">
-        <button id="btn-reset" type="button">Reset</button>
-        <button id="btn-submit" type="button" class="primary">Vedi risultato</button>
-        <div class="progress" aria-label="Progresso compilazione"><span id="progress-bar"></span></div>
+          <div class="actions">
+            <button id="btn-reset" type="button">Reset</button>
+            <button id="btn-submit" class="primary" type="submit">Vedi risultato</button>
+            <div class="progress" aria-label="Progresso compilazione"><span id="progress-bar"></span></div>
+          </div>
+        </form>
       </div>
 
       <div id="result" class="result">
@@ -80,7 +104,7 @@
     </section>
   </div>
 
-  <!-- Carica lo script esterno con tutta la logica -->
- <script src="script.js" defer></script>
+  <!-- Logica del quiz -->
+  <script src="script.js" defer></script>
 </body>
 </html>
